@@ -1,6 +1,61 @@
 @import url('https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    background-color: #333732; /* darkGrey color from your Tailwind config */
+}
+
+/* Custom styles for #image-container */
+#image-container {
+    width: 50%; /* Reduced width */
+    height: 60%; /* Increased height */
+}
+svg {
+    display: inline-block;
+    vertical-align: middle;
+}
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    /* Add more keyframes as needed */
+
+    .animate-fade-in {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .animate-slide-in {
+        animation: slideIn 0.5s ease-out;
+    }
+    /* Add classes for using your keyframes */
+}

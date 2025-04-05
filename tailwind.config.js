@@ -43,6 +43,10 @@ export default {
         // Added royal purple
         royalPurple: "#6a0dad", // Royal Purple Color
       },
+      backdropBlur: {
+        xs: '2px',
+        sm: '4px',
+      },
       boxShadow: {
         cyanShadow: "0px 0px 20px 0px rgba(94, 206, 220, 0.5)",
         cyanBigShadow: "10px 10px 1000px 500px rgba(94, 206, 220, 0.3)",
