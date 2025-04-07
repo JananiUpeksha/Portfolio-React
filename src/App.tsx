@@ -19,13 +19,12 @@ function App() {
     return (
         <Router>
             <main className="font-body text-white relative overflow-hidden">
-                <NavbarMain/>
                 <HeroMain/>
                 <HeroGradient />
                 <AboutMe/>
                 <SkillMain />
-                {/*<ProjectMain/>
-                <ContactForm />*/}
+                <ProjectMain/>
+                <ContactForm />
 
             </main>
         </Router>

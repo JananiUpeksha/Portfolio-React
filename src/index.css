@@ -1,9 +1,93 @@
 @import url('https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap');
+/* Font import (if not already there) */
+@import url('https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap');
+
+/* Navbar Links */
+.navbar-links {
+    display: flex;
+    gap: 2rem;
+    font-family: 'Baskervville SC', serif;
+    letter-spacing: 0.05em;
+    position: relative;
+}
+
+.cosmic-nav {
+    background: rgba(46, 16, 55, 0.3);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 0.5rem;
+    padding: 1.5rem 2rem;
+}
+
+.nav-item-group {
+    position: relative;
+    list-style: none;
+}
+
+.cosmic-nav-button {
+    color: white;
+    background: transparent;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: relative;
+    padding: 0.2rem 0;
+    font-family: inherit;
+    letter-spacing: inherit;
+    transition: color 0.3s ease;
+}
+
+.cosmic-nav-button:hover {
+    color: #c084fc;
+}
+
+.cosmic-underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: linear-gradient(90deg, #a855f7, #6366f1);
+}
+
+.star-container {
+    position: absolute;
+    inset: -0.5rem;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.floating-star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .navbar-links {
+        flex-direction: column;
+        position: absolute;
+        top: 120%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        text-align: center;
+        font-size: 1.25rem;
+    }
+}
+
+.font-navbar {
+    font-family: 'Baskervville SC', serif;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+}
 
 body {
-    background-color: #333732; /* darkGrey color from your Tailwind config */
+    background-color: #030712; /* darkGrey color from your Tailwind config */
 }
 
 /* Custom styles for #image-container */
@@ -22,6 +106,33 @@ svg {
 .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+/* Cosmic glow effect for navbar */
+.cosmic-glow {
+    position: relative;
+}
+
+.cosmic-glow::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    background: linear-gradient(45deg, #a855f7, #6366f1, #ec4899);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0.3;
+    filter: blur(20px);
+}
+
+/* Animation for the mobile menu */
+@keyframes cosmicPulse {
+    0% { box-shadow: 0 0 10px rgba(168, 85, 247, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.6); }
+    100% { box-shadow: 0 0 10px rgba(168, 85, 247, 0.3); }
+}
+
+.mobile-menu {
+    animation: cosmicPulse 4s infinite ease-in-out;
 }
 
 @tailwind base;

@@ -42,7 +42,7 @@ const AboutMe = () => {
     };
 
     return (
-        <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 flex flex-col justify-center items-center p-8 relative overflow-hidden">
+        <div  id= "aboutme" className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 flex flex-col justify-center items-center p-8 relative overflow-hidden">
             {/* Floating tech bubbles */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 {techStack.map((tech, index) => (

@@ -1,231 +1,253 @@
-import React from "react";
-import { FaMapMarkerAlt, FaPhone, FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import React, { useRef } from "react";
+import {
+    FaMapMarkerAlt,
+    FaPhone,
+    FaEnvelope,
+    FaFacebook,
+    FaTwitter,
+    FaInstagram,
+    FaLinkedin,
+    FaGithub,
+} from "react-icons/fa";
+import { motion } from "framer-motion";
+import emailjs from '@emailjs/browser'; // Install with: npm install @emailjs/browser
 
 const ContactForm = () => {
+    const form = useRef();
+    const [isSending, setIsSending] = React.useState(false);
+    const [isSent, setIsSent] = React.useState(false);
+
     const handleIconClick = (url) => {
         window.open(url, '_blank');
     };
 
+    const sendEmail = (e) => {
+        e.preventDefault();
+        setIsSending(true);
+
+        // Replace with your EmailJS service ID, template ID, and public key
+        emailjs.sendForm(
+            'service_1io5c9g',
+            'template_5uwt5gv',
+            form.current,
+            'nYUTBXX5j5NVNWVSd'
+        )
+            .then((result) => {
+                console.log(result.text);
+                setIsSent(true);
+                form.current.reset();
+            }, (error) => {
+                console.log(error.text);
+                alert('Failed to send message. Please try again later.');
+            })
+            .finally(() => {
+                setIsSending(false);
+            });
+    };
+
+    // Kadawatha coordinates
+    const kadawathaLat = 7.0167;
+    const kadawathaLng = 79.9333;
+
     return (
-        <div style={{
-            width: '100vw',
-            height: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            fontFamily: 'Arial, sans-serif',
-            backgroundColor: '#f5f5f5'
-        }}>
-            <div style={{
-                flex: 1,
-                padding: '2rem',
-                maxWidth: '1400px', // Increased max width
-                margin: '0 auto',
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center'
-            }}>
-                <div style={{
-                    display: 'flex',
-                    gap: '3rem',
-                    flexWrap: 'wrap',
-                    width: '100%'
-                }}>
-                    {/* Contact Info Section */}
-                    <div style={{
-                        flex: 1,
-                        minWidth: '300px',
-                        background: 'white',
-                        padding: '2rem',
-                        borderRadius: '8px',
-                        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-                        height: 'fit-content' // Reduced height
-                    }}>
-                        <h2 style={{
-                            fontSize: '1.5rem',
-                            marginBottom: '1rem',
-                            color: '#444'
-                        }}>Contact Information</h2>
-                        <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
-                            <li style={{ marginBottom: '0.5rem', color: '#666' }}>Find from touch on the user's image.</li>
-                            <li style={{ marginBottom: '0.5rem', color: '#666' }}>Playing touch by your browser browser.</li>
-                        </ul>
+        <div id="contact"
+             className="h-screen flex flex-col bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 overflow-hidden">
+            <div className="flex-1 overflow-y-auto py-8 px-4 sm:px-8">
+                <div className="max-w-6xl mx-auto">
+                    <motion.h2
+                        initial={{opacity: 0, y: -20}}
+                        animate={{opacity: 1, y: 0}}
+                        transition={{duration: 0.5}}
+                        className="text-4xl md:text-5xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-purple-400 mb-8"
+                    >
+                        Get In Touch
+                    </motion.h2>
 
-                        {/* Location with icon */}
-                        <div style={{ display: 'flex', alignItems: 'center', marginTop: '1.5rem' }}>
-                            <FaMapMarkerAlt style={{ marginRight: '10px', color: '#555' }} />
-                            <h3 style={{
-                                fontSize: '1.2rem',
-                                marginBottom: '0.5rem',
-                                color: '#555'
-                            }}>Location</h3>
-                        </div>
-                        <ul style={{ listStyleType: 'none', paddingLeft: '24px' }}>
-                            <li style={{ marginBottom: '0.5rem', color: '#666' }}>Navigation, 0° in touch</li>
-                        </ul>
+                    {isSent && (
+                        <motion.div
+                            initial={{opacity: 0, scale: 0.9}}
+                            animate={{opacity: 1, scale: 1}}
+                            className="bg-green-500/20 border border-green-500 text-green-300 px-4 py-3 rounded-lg mb-6 text-center"
+                        >
+                            Thank you! Your message has been sent successfully.
+                        </motion.div>
+                    )}
 
-                        <h3 style={{
-                            fontSize: '1.2rem',
-                            marginTop: '1.5rem',
-                            marginBottom: '0.5rem',
-                            color: '#555'
-                        }}>Event</h3>
-                        <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
-                            <li style={{ marginBottom: '0.5rem', color: '#666' }}>Device: Android/US/Digital/User Interface</li>
-                        </ul>
+                    <div className="flex flex-col lg:flex-row gap-8">
+                        {/* Contact Info Section with Map */}
+                        <motion.div
+                            initial={{opacity: 0, x: -20}}
+                            animate={{opacity: 1, x: 0}}
+                            transition={{duration: 0.5, delay: 0.2}}
+                            className="flex-1 min-w-[300px] bg-gray-800/50 backdrop-blur-md p-6 rounded-xl border border-gray-700 shadow-lg"
+                        >
+                            <h3 className="text-2xl font-bold text-cyan-300 mb-6">Contact Information</h3>
 
-                        {/* Phone with icon */}
-                        <div style={{ display: 'flex', alignItems: 'center', marginTop: '1.5rem' }}>
-                            <FaPhone style={{ marginRight: '10px', color: '#555' }} />
-                            <h3 style={{
-                                fontSize: '1.2rem',
-                                marginBottom: '0.5rem',
-                                color: '#555'
-                            }}>Phone</h3>
-                        </div>
-                        <ul style={{ listStyleType: 'none', paddingLeft: '24px' }}>
-                            <li style={{ marginBottom: '0.5rem', color: '#666' }}>+91 210 240 249</li>
-                        </ul>
+                            <div className="space-y-6">
+                                <div className="flex items-start gap-4">
+                                    <FaMapMarkerAlt className="text-purple-400 mt-1 text-xl"/>
+                                    <div>
+                                        <h4 className="text-lg text-purple-300 mb-1">Location</h4>
+                                        <p className="text-gray-300">Kadawatha, Sri Lanka</p>
+                                    </div>
+                                </div>
 
-                        {/* Follow care with social icons */}
-                        <h3 style={{
-                            fontSize: '1.2rem',
-                            marginTop: '1.5rem',
-                            marginBottom: '1rem',
-                            color: '#555'
-                        }}>Follow care</h3>
-                        <div style={{
-                            display: 'flex',
-                            gap: '15px',
-                            paddingLeft: '0px',
-                            marginBottom: '1rem'
-                        }}>
-                            <FaFacebook
-                                style={{ fontSize: '24px', color: '#4267B2', cursor: 'pointer' }}
-                                onClick={() => handleIconClick('https://facebook.com')}
-                            />
-                            <FaTwitter
-                                style={{ fontSize: '24px', color: '#1DA1F2', cursor: 'pointer' }}
-                                onClick={() => handleIconClick('https://twitter.com')}
-                            />
-                            <FaInstagram
-                                style={{ fontSize: '24px', color: '#E1306C', cursor: 'pointer' }}
-                                onClick={() => handleIconClick('https://instagram.com')}
-                            />
-                            <FaLinkedin
-                                style={{ fontSize: '24px', color: '#0077B5', cursor: 'pointer' }}
-                                onClick={() => handleIconClick('https://linkedin.com')}
-                            />
-                        </div>
-                        <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
-                            <li style={{ marginBottom: '0.5rem', color: '#666' }}>Start Message</li>
-                        </ul>
-                    </div>
+                                <div className="flex items-start gap-4">
+                                    <FaPhone className="text-cyan-400 mt-1 text-xl"/>
+                                    <div>
+                                        <h4 className="text-lg text-cyan-300 mb-1">Phone</h4>
+                                        <p className="text-gray-300">+94 77 123 4567</p>
+                                    </div>
+                                </div>
 
-                    {/* Message Form Section */}
-                    <div style={{
-                        flex: 1,
-                        minWidth: '300px',
-                        background: 'white',
-                        padding: '2rem',
-                        borderRadius: '8px',
-                        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-                        height: 'fit-content' // Reduced height
-                    }}>
-                        <h2 style={{
-                            fontSize: '1.5rem',
-                            marginBottom: '1.5rem',
-                            color: '#444'
-                        }}>Send Me a Message</h2>
+                                <div className="flex items-start gap-4">
+                                    <FaEnvelope className="text-purple-400 mt-1 text-xl"/>
+                                    <div>
+                                        <h4 className="text-lg text-purple-300 mb-1">Email</h4>
+                                        <p className="text-gray-300">upekshakeshani@gmail.com</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div style={{ marginBottom: '1.5rem' }}>
-                            <label style={{
-                                display: 'block',
-                                marginBottom: '0.5rem',
-                                fontWeight: 'bold',
-                                color: '#555'
-                            }} htmlFor="name">Your Name</label>
-                            <input style={{
-                                width: '100%',
-                                padding: '0.8rem',
-                                border: '1px solid #ddd',
-                                borderRadius: '4px',
-                                fontSize: '1rem'
-                            }} type="text" id="name" placeholder="Text Head" />
-                        </div>
+                            <div className="mt-8">
+                                <h4 className="text-lg text-cyan-300 mb-4">Connect With Me</h4>
+                                <div className="flex gap-4 mb-6">
+                                    {[
+                                        { icon: <FaLinkedin />, color: "text-blue-400", url: "https://www.linkedin.com/in/janani-upeksha-24ab27212" },
+                                        {
+                                            icon: <FaGithub/>,
+                                            color: "text-gray-300",
+                                            url: "https://github.com/JananiUpeksha"
+                                        },
+                                        {
+                                            icon: <FaTwitter/>,
+                                            color: "text-cyan-400",
+                                            url: "https://github.com/JananiUpeksha"
+                                        },
+                                        {
+                                            icon: <FaInstagram/>,
+                                            color: "text-pink-400",
+                                            url: "https://github.com/JananiUpeksha"
+                                        },
+                                        {
+                                            icon: <FaFacebook/>,
+                                            color: "text-blue-500",
+                                            url: "https://github.com/JananiUpeksha"
+                                        },
+                                    ].map((social, index) => (
+                                        <motion.button
+                                            key={index}
+                                            whileHover={{y: -3, scale: 1.1}}
+                                            whileTap={{scale: 0.9}}
+                                            className={`${social.color} text-2xl hover:text-white transition-colors`}
+                                            onClick={() => handleIconClick(social.url)}
+                                            aria-label={`${social.icon.type.name} link`}
+                                        >
+                                            {social.icon}
+                                        </motion.button>
+                                    ))}
+                                </div>
 
-                        <div style={{ marginBottom: '1.5rem' }}>
-                            <label style={{
-                                display: 'block',
-                                marginBottom: '0.5rem',
-                                fontWeight: 'bold',
-                                color: '#555'
-                            }} htmlFor="email">Your Email</label>
-                            <input style={{
-                                width: '100%',
-                                padding: '0.8rem',
-                                border: '1px solid #ddd',
-                                borderRadius: '4px',
-                                fontSize: '1rem'
-                            }} type="email" id="email" placeholder="Text Head" />
-                        </div>
+                                {/* Map placed under social icons */}
+                                <div className="mt-4">
+                                    <h4 className="text-lg text-purple-300 mb-3">My Location</h4>
+                                    <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+                                        <iframe
+                                            title="Kadawatha Location"
+                                            width="100%"
+                                            height="200"
+                                            frameBorder="0"
+                                            scrolling="no"
+                                            marginHeight="0"
+                                            marginWidth="0"
+                                            src={`https://maps.google.com/maps?q=${kadawathaLat},${kadawathaLng}&z=15&output=embed`}
+                                            className="rounded-lg"
+                                        ></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
 
-                        <div style={{ marginBottom: '1.5rem' }}>
-                            <label style={{
-                                display: 'block',
-                                marginBottom: '0.5rem',
-                                fontWeight: 'bold',
-                                color: '#555'
-                            }} htmlFor="subject">Subject</label>
-                            <input style={{
-                                width: '100%',
-                                padding: '0.8rem',
-                                border: '1px solid #ddd',
-                                borderRadius: '4px',
-                                fontSize: '1rem'
-                            }} type="text" id="subject" placeholder="Warning" />
-                        </div>
+                        {/* Message Form Section */}
+                        <motion.div
+                            initial={{opacity: 0, x: 20}}
+                            animate={{opacity: 1, x: 0}}
+                            transition={{duration: 0.5, delay: 0.2}}
+                            className="flex-1 min-w-[300px] bg-gray-800/50 backdrop-blur-md p-6 rounded-xl border border-gray-700 shadow-lg"
+                        >
+                            <h3 className="text-2xl font-bold text-purple-300 mb-6">Send Me a Message</h3>
 
-                        <div style={{ marginBottom: '1.5rem' }}>
-                            <label style={{
-                                display: 'block',
-                                marginBottom: '0.5rem',
-                                fontWeight: 'bold',
-                                color: '#555'
-                            }} htmlFor="message">Your Message</label>
-                            <textarea style={{
-                                width: '100%',
-                                padding: '0.8rem',
-                                border: '1px solid #ddd',
-                                borderRadius: '4px',
-                                fontSize: '1rem',
-                                resize: 'vertical',
-                                minHeight: '150px'
-                            }} id="message" rows="5"></textarea>
-                        </div>
+                            <form ref={form} onSubmit={sendEmail} className="space-y-6">
+                                <div>
+                                    <label htmlFor="name" className="block text-cyan-300 mb-2">Your Name</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="from_name"
+                                        className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
+                                        placeholder="Enter your name"
+                                        required
+                                    />
+                                </div>
 
-                        <button style={{
-                            backgroundColor: '#4CAF50',
-                            color: 'white',
-                            border: 'none',
-                            padding: '1rem',
-                            fontSize: '1rem',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            transition: 'background-color 0.3s',
-                            width: '100%', // Matches textarea width
-                            marginTop: '0.5rem'
-                        }}>Send Message</button>
+                                <div>
+                                    <label htmlFor="email" className="block text-cyan-300 mb-2">Your Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="from_email"
+                                        className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
+                                        placeholder="Enter your email"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label htmlFor="subject" className="block text-cyan-300 mb-2">Subject</label>
+                                    <input
+                                        type="text"
+                                        id="subject"
+                                        name="subject"
+                                        className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
+                                        placeholder="What's this about?"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label htmlFor="message" className="block text-cyan-300 mb-2">Your Message</label>
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        rows="4"
+                                        className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent"
+                                        placeholder="Your message here..."
+                                        required
+                                    ></textarea>
+                                </div>
+
+                                <motion.button
+                                    type="submit"
+                                    disabled={isSending}
+                                    whileHover={{scale: 1.02}}
+                                    whileTap={{scale: 0.98}}
+                                    className="w-full bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-medium py-3 px-6 rounded-lg shadow-lg hover:shadow-cyan-500/30 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                                >
+                                    {isSending ? 'Sending...' : 'Send Message'}
+                                </motion.button>
+                            </form>
+                        </motion.div>
                     </div>
                 </div>
             </div>
 
-            <footer style={{
-                textAlign: 'center',
-                padding: '1rem',
-                backgroundColor: '#333',
-                color: 'white'
-            }}>
-                <p>© {new Date().getFullYear()} Contact Form. All rights reserved.</p>
+            {/* Enhanced Footer */}
+            <footer className="bg-gray-900/80 backdrop-blur-md py-4 px-6 border-t border-gray-700">
+                <div className="max-w-6xl mx-auto text-center">
+                    <div className="text-gray-500 text-sm">
+                        © {new Date().getFullYear()} Janani Upeksha Perera. All rights reserved.
+                    </div>
+                </div>
             </footer>
         </div>
     );

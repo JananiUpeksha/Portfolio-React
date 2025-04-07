@@ -14,27 +14,39 @@ const techStars = {
     { name: "React", x: 70, y: 60, size: 1.8, img: "React.png" },
     { name: "Node.js", x: 50, y: 80, size: 1.4, img: "Node.js.png" }
   ],
-  Frontend: [
-    { name: "React", x: 20, y: 40, size: 1.7, img: "img.png" },
-    { name: "Vue", x: 60, y: 30, size: 1.3, img: "https://via.placeholder.com/100" },
-    { name: "Angular", x: 80, y: 70, size: 1.5, img: "https://via.placeholder.com/100" }
-  ],
-  DevOps: [
-    { name: "Docker", x: 25, y: 60, size: 1.6, img: "Docker.png" },
-    { name: "Kubernetes", x: 65, y: 40, size: 1.4, img: "Kubernatees.png" },
-    { name: "AWS", x: 45, y: 20, size: 1.8, img: "CloudComputing.png" }
+  Interest: [
+    { name: "Docker", x: 15, y: 30, size: 1.6, img: "Docker.png" },
+    { name: "Kubernetes", x: 85, y: 30, size: 1.4, img: "Kubernetes.png" },
+    { name: "AWS", x: 50, y: 15, size: 1.8, img: "aws.png" },
+    { name: "C#", x: 20, y: 70, size: 1.3, img: "csharp.png" },
+    { name: ".Net", x: 80, y: 70, size: 1.5, img: "dotnet.png" },
+    { name: "Angular", x: 35, y: 50, size: 1.7, img: "angular.png" },
+    { name: "Next.js", x: 65, y: 50, size: 1.7, img: "nextjs.png" }
   ],
   Database: [
     { name: "MySQL", x: 35, y: 50, size: 1.3, img: "MySQL.png" },
     { name: "MongoDB", x: 75, y: 30, size: 1.5, img: "MongoDB.png" },
     { name: "Firebase", x: 55, y: 80, size: 1.4, img: "Firebase.png" }
   ],
+  Backend: [
+    { name: "Node.js", x: 20, y: 30, size: 1.6, img: "Node.js.png" },
+    { name: "Express.js", x: 40, y: 70, size: 1.4, img: "express.png" },
+    { name: "Spring Boot", x: 70, y: 40, size: 1.5, img: "springboot.png" },
+  ],
   Tools: [
-    { name: "GitHub", x: 15, y: 70, size: 1.7, img: "Github.png" },
-    { name: "VS Code", x: 85, y: 50, size: 1.9, img: "VScode.png" },
-    { name: "Figma", x: 40, y: 30, size: 1.5, img: "Figma.png" }
+    { name: "GitHub", x: 15, y: 20, size: 1.7, img: "Github.png" },
+    { name: "VS Code", x: 85, y: 20, size: 1.9, img: "vs.png" },
+    { name: "IntelliJ IDEA", x: 25, y: 50, size: 1.6, img: "intellij.png" },
+    { name: "Figma", x: 15, y: 80, size: 1.5, img: "Figma.png" },
+    { name: "Linux", x: 50, y: 70, size: 1.4, img: "linux.png" },
+    { name: "Windows", x: 85, y: 80, size: 1.3, img: "windows.png" },
+    { name: "Postman", x: 40, y: 30, size: 1.4, img: "postman.png" },
+    { name: "WebStorm", x: 60, y: 30, size: 1.6, img: "ws.png" }
   ]
+
 };
+
+// Rest of your component code remains the same...
 
 const SkillsConstellation = () => {
   const [currentCategory, setCurrentCategory] = useState("Languages");
@@ -68,28 +80,63 @@ const SkillsConstellation = () => {
   return (
       <div style={gradientStyle}>
         <div className="relative mx-auto" style={{width: '80vw', height: '60vh'}}>
-          <h1 className="text-3xl md:text-4xl font-bold text-center text-[#f9f3d2] mb-10 pt-6"
-              style={{fontFamily: "'Josefin Sans', sans-serif", textShadow: '0 2px 4px rgba(0,0,0,0.5)'}}>
-            My Tech Constellation
+          <h1 className="text-4xl md:text-5xl font-medium text-center text-[#f9f3d2] mb-12 pt-8
+                tracking-tight bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-400
+                animate-text-shimmer bg-[length:200%_100%]"
+              style={{
+                fontFamily: "'Clash Display', sans-serif",
+                letterSpacing: '-0.05em',
+                lineHeight: '1.1'
+              }}>
+    <span className="drop-shadow-[0_5px_5px_rgba(255,215,0,0.3)]">
+        My Tech Constellation
+    </span>
           </h1>
 
-          <div className="flex flex-wrap justify-center gap-2 mb-4">
-            {Object.keys(techStars).map(category => (
+          <div className="flex flex-wrap justify-center gap-3 mb-6 px-4">
+            {Object.keys(techStars).map((category) => (
                 <motion.button
                     key={category}
-                    className={`px-4 py-1 rounded-full text-base font-medium ${
-                        currentCategory === category
-                            ? "bg-[#6a0dad] text-[#f9f3d2]"
-                            : "bg-[#1e1e1e] text-[#978580]"
-                    }`}
-                    whileHover={{scale: 1.05, backgroundColor: "#7a4dff"}}
-                    whileTap={{scale: 0.95}}
+                    className={`relative px-5 py-2 rounded-full text-sm font-medium tracking-wide 
+        ${currentCategory === category
+                        ? "text-white"
+                        : "text-[#b4b4b4] hover:text-white"
+                    } overflow-hidden z-10 transition-all duration-300`}
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "0 4px 12px rgba(122, 77, 255, 0.3)"
+                    }}
+                    whileTap={{scale: 0.98}}
                     onClick={() => {
                       setCurrentCategory(category);
                       setSelectedTech(null);
                     }}
+                    initial={false}
                 >
-                  {category}
+                  {currentCategory === category && (
+                      <motion.span
+                          layoutId="activeCategory"
+                          className="absolute inset-0 bg-gradient-to-r from-[#7a4dff] to-[#6a0dad] rounded-full z-[-1]"
+                          transition={{type: "spring", bounce: 0.3, duration: 0.6}}
+                      />
+                  )}
+                  {currentCategory !== category && (
+                      <motion.span
+                          className="absolute inset-0 bg-[#2a2a2a] rounded-full z-[-1] border border-[#3a3a3a]"
+                          whileHover={{backgroundColor: "#3a3a3a"}}
+                      />
+                  )}
+                  <span className="relative z-10 flex items-center gap-1">
+        {category}
+                    {currentCategory === category && (
+                        <motion.span
+                            initial={{scale: 0}}
+                            animate={{scale: 1}}
+                            transition={{type: "spring", delay: 0.2}}
+                            className="w-2 h-2 bg-white rounded-full"
+                        />
+                    )}
+      </span>
                 </motion.button>
             ))}
           </div>

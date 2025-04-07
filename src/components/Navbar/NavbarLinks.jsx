@@ -1,35 +1,72 @@
-import { Link } from "react-scroll";
-
-const links = [
-    { link: "About Me", section: "about" },
-    { link: "Skills", section: "skills" },
-    { link: "Experience", section: "experience" },
-    { link: "Projects", section: "projects" },
-    { link: "Contact", section: "contact" },
-];
+import { motion } from "framer-motion";
 
 const NavbarLinks = () => {
+    const navItems = [
+        { name: "About Me", id: "aboutme" },
+        { name: "Skills", id: "skills" },
+        { name: "Projects", id: "project" },
+        { name: "Contact", id: "contact" },
+    ];
+
+    const handleScroll = (id) => {
+        const section = document.getElementById(id);
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+
     return (
-        <ul className="flex lg:flex-row sm:flex-col gap-6 text-white font-body lg:relative sm:absolute sm:top-[120%] text-center left-[50%] -translate-x-[50%] lg:text-md sm:text-xl sm:bg-pink-500/30 backdrop-blur-lg lg:bg-black sm:w-full py-4">
-            {links.map((link, index) => {
-                return (
-                    <li key={index} className="group">
-                        <Link
-                            spy={true}
-                            smooth={true}
-                            duration={500}
-                            offset={-130}
-                            to={link.section}
-                            className="cursor-pointer text-white hover:text-lightLavender transition-all duration-500"
-                        >
-                            {link.link}
-                        </Link>
-                        <div className="mx-auto bg-violet w-0 group-hover:w-full h-[1px] transition-all duration-500"></div>
-                    </li>
-                );
-            })}
+        <ul className="navbar-links cosmic-nav">
+            {navItems.map((item, index) => (
+                <motion.li
+                    key={index}
+                    className="nav-item-group"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                >
+                    <button
+                        onClick={() => handleScroll(item.id)}
+                        className="cosmic-nav-button"
+                    >
+                        {item.name}
+
+                        <motion.div
+                            className="cosmic-underline"
+                            initial={{ width: 0 }}
+                            whileHover={{ width: "100%" }}
+                            transition={{ duration: 0.3 }}
+                        />
+
+                        <div className="star-container">
+                            {[...Array(3)].map((_, i) => (
+                                <motion.span
+                                    key={i}
+                                    className="floating-star"
+                                    style={{
+                                        width: `${Math.random() * 2 + 1}px`,
+                                        height: `${Math.random() * 2 + 1}px`,
+                                        left: `${Math.random() * 100}%`,
+                                        top: `${Math.random() * 100}%`,
+                                    }}
+                                    animate={{
+                                        opacity: [0, 0.8, 0],
+                                        x: [0, (Math.random() - 0.5) * 20],
+                                        y: [0, (Math.random() - 0.5) * 20]
+                                    }}
+                                    transition={{
+                                        duration: 1.5,
+                                        delay: i * 0.2,
+                                        repeat: Infinity
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    </button>
+                </motion.li>
+            ))}
         </ul>
     );
 };
 
 export default NavbarLinks;
+
