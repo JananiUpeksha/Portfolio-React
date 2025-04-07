@@ -96,7 +96,7 @@ const ContactForm = () => {
                                     <FaPhone className="text-cyan-400 mt-1 text-xl"/>
                                     <div>
                                         <h4 className="text-lg text-cyan-300 mb-1">Phone</h4>
-                                        <p className="text-gray-300">+94 77 123 4567</p>
+                                        <p className="text-gray-300">+94 77 466 2870</p>
                                     </div>
                                 </div>
 
